@@ -1,26 +1,34 @@
 package view
 
+import controller.MainController
 import javafx.geometry.Insets
-import javafx.geometry.Pos
-import javafx.scene.Group
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
+import javafx.scene.control.cell.PropertyValueFactory
 import javafx.scene.layout.HBox
+import javafx.scene.layout.StackPane
 import javafx.scene.layout.VBox
+import model.Contact
 
-class MainForm(mainApp: MainApp) {
+class MainForm(mainApp : MainApp) : StackPane() {
 
-    var mainView : MainApp = mainApp
-    var buttonNewContact : Button = Button()
-    var buttonRemoveContact : Button = Button()
+    private val mainView : MainApp = mainApp
+    private var buttonNewContact : Button = Button()
+    private var buttonRemoveContact : Button = Button()
     var labelNumberContacts : Label = Label()
-    lateinit var tableContacts : TableView<String>
-    var boxView : VBox = VBox()
+    lateinit var tableContacts : TableView<Contact>
+    private var boxView : VBox = VBox()
 
-    fun initUI() {
-        var subBox : HBox = HBox()
+    fun initUI(controller : MainController) {
+        setUI()
+        setEvents(controller)
+        controller.loadList()
+    }
+
+    private fun setUI(){
+        val subBox = HBox()
         tableContacts = TableView()
 
         buttonNewContact.text = "Novo Contato"
@@ -35,16 +43,27 @@ class MainForm(mainApp: MainApp) {
 
         boxView.spacing = MainApp.widthApp * 0.010
 
-        var nomeColumn = TableColumn<String,String>("Nome")
+        val nomeColumn = TableColumn<Contact,String>("Nome")
         nomeColumn.prefWidth = MainApp.widthApp / 2
-        var numeroColumn = TableColumn<String,String>("Número")
+        nomeColumn.cellValueFactory = PropertyValueFactory<Contact,String>("name")
+
+
+        val numeroColumn = TableColumn<Contact,String>("Número")
         numeroColumn.prefWidth = MainApp.widthApp / 2
+        numeroColumn.cellValueFactory = PropertyValueFactory<Contact,String>("phone")
 
         tableContacts.columns.addAll(nomeColumn,numeroColumn)
 
         subBox.children.addAll(buttonNewContact,buttonRemoveContact,labelNumberContacts)
         boxView.children.addAll(subBox,tableContacts)
-        mainView.mainRoot.children.add(boxView)
+        children.add(boxView)
+
+        mainView.mainRoot.children.add(this)
+    }
+
+    private fun setEvents(controller : MainController){
+        buttonNewContact.onAction = controller.newContactEvent()
+        buttonRemoveContact.onAction = controller.removeContactEvent()
     }
 
 }

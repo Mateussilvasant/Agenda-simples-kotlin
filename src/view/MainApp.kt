@@ -1,5 +1,6 @@
 package view
 
+import controller.MainController
 import javafx.application.Application
 import javafx.scene.Scene
 import javafx.scene.layout.StackPane
@@ -10,8 +11,8 @@ import javafx.stage.Stage
 
 open class MainApp : Application() {
 
-     lateinit var sceneView: Scene
-     lateinit var stage: Stage
+     private lateinit var sceneView: Scene
+     private lateinit var stage: Stage
      lateinit var mainRoot: StackPane
 
     companion object {
@@ -25,18 +26,23 @@ open class MainApp : Application() {
         sceneView = Scene(mainRoot)
         stage.isResizable = false
         stage.scene = sceneView
-        initUI();
+        initUI()
         stage.show()
     }
 
-    fun initUI(){
-        MainForm(this).initUI()
+    private fun initUI(){
+        MainController(this)
     }
 
     private fun initPanel() {
-        var background: Rectangle = Rectangle(Companion.widthApp , Companion.heightApp)
+        val background = Rectangle(widthApp, heightApp)
         background.fill = Color.WHITESMOKE
         mainRoot = StackPane(background)
+    }
+
+    fun backMenu(next: StackPane, previous: StackPane) {
+        mainRoot.children.remove(previous)
+        mainRoot.children.add(next)
     }
 
 
