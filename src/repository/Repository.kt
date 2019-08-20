@@ -2,7 +2,7 @@ package repository
 
 import model.Contact
 
-class Repository  {
+class Repository {
 
     companion object {
 
@@ -13,10 +13,10 @@ class Repository  {
         }
 
         fun delete(contact: Contact) {
-
+            contactList.remove(contact)
         }
 
-        fun getList() : List<Contact>{
+        fun getList(): List<Contact> {
             return contactList
         }
     }

@@ -12,16 +12,16 @@ import javafx.scene.layout.VBox
 
 class ContactForm(mainController: MainController) : StackPane() {
 
-    private var nameLabel : Label = Label()
-    var nameField : TextField = TextField()
-    private var phoneLabel : Label = Label()
-    var phoneField : TextField = TextField()
-    private var buttonSaveContact : Button = Button()
-    private var buttonCancel : Button = Button()
-    private var vboxView : VBox = VBox()
-    private var controller : MainController = mainController
+    private var nameLabel: Label = Label()
+    var nameField: TextField = TextField()
+    private var phoneLabel: Label = Label()
+    var phoneField: TextField = TextField()
+    private var buttonSaveContact: Button = Button()
+    private var buttonCancel: Button = Button()
+    private var vboxView: VBox = VBox()
+    private var controller: MainController = mainController
 
-    init{
+    init {
         initUI()
         setEvents(controller)
     }
@@ -47,10 +47,10 @@ class ContactForm(mainController: MainController) : StackPane() {
         buttonCancel.prefHeight = MainApp.widthApp * 0.05
 
 
-        val buttons = HBox(buttonSaveContact,buttonCancel)
+        val buttons = HBox(buttonSaveContact, buttonCancel)
         buttons.alignment = Pos.CENTER
 
-        vboxView.children.addAll(VBox(nameLabel,nameField),VBox(phoneLabel,phoneField), buttons)
+        vboxView.children.addAll(VBox(nameLabel, nameField), VBox(phoneLabel, phoneField), buttons)
         children.add(vboxView)
     }
 

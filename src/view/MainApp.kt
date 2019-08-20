@@ -11,9 +11,9 @@ import javafx.stage.Stage
 
 open class MainApp : Application() {
 
-     private lateinit var sceneView: Scene
-     private lateinit var stage: Stage
-     lateinit var mainRoot: StackPane
+    private lateinit var sceneView: Scene
+    private lateinit var stage: Stage
+    lateinit var mainRoot: StackPane
 
     companion object {
         val widthApp: Double = Screen.getPrimary().bounds.width * 0.30
@@ -30,7 +30,7 @@ open class MainApp : Application() {
         stage.show()
     }
 
-    private fun initUI(){
+    private fun initUI() {
         MainController(this)
     }
 

@@ -29,7 +29,14 @@ class MainController(mainView: MainApp) {
     /*Remove um contato */
     fun removeContactEvent(): EventHandler<ActionEvent>? {
         return EventHandler {
-            //ContactService.delete()
+
+            if (viewMain.tableContacts.selectionModel.selectedItem != null) {
+                val contact = viewMain.tableContacts.selectionModel.selectedItem
+                ContactService.delete(contact)
+                loadList()
+            } else {
+                Alert(Alert.AlertType.INFORMATION, "Selecione um contato").showAndWait()
+            }
         }
     }
 
@@ -67,7 +74,6 @@ class MainController(mainView: MainApp) {
     private fun saveContact() {
         ContactService.save(viewContact.nameField.text, viewContact.phoneField.text)
     }
-
 
 
 }

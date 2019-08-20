@@ -9,16 +9,15 @@ class ContactService {
 
         fun save(name: String, phone: String) {
             validateSave(name, phone)
-            val contact  = Contact(name,phone)
+            val contact = Contact(name, phone)
             Repository.save(contact)
         }
 
-        fun delete(name: String, phone: String) {
-            validateDelete(name, phone)
-            Repository.delete(Contact(name,phone))
+        fun delete(contact: Contact) {
+            Repository.delete(contact)
         }
 
-        fun getList() : List<Contact>{
+        fun getList(): List<Contact> {
             return Repository.getList()
         }
 
@@ -31,11 +30,6 @@ class ContactService {
             }
         }
 
-        private fun validateDelete(name: String, phone: String) {
-            if (name.isEmpty() || phone.isEmpty()) {
-                throw Exception("É necessário selecionar um contato para remover")
-            }
-        }
 
     }
 
